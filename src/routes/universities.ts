@@ -5,4 +5,6 @@ const universitiesRouter = Router()
 
 universitiesRouter.post('/', createUniversity)
 
+// universitiesRouter.get('/', getAllUniversities)
+
 export default universitiesRouter

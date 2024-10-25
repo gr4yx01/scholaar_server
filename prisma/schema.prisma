@@ -42,7 +42,7 @@ model University {
   name         String
   stateId      String
   state        State          @relation(fields: [stateId], references: [id])
-  loans        Loan[]
+  loans        LoanUniversity[]
 }
 
 model Scholarship {
@@ -71,8 +71,15 @@ model Loan {
   description_two String
   description_three String
   url String
-  universities University @relation(fields: [universityId], references: [id])
+  universities LoanUniversity[]
+  created_at DateTime @default(now())
+}
+
+model LoanUniversity {
+  id           String            @id @default(cuid())
+  loanId       String
   universityId String
-  stateId String
+  university   University      @relation(fields: [universityId], references: [id])
+  loan         Loan            @relation(fields: [loanId], references: [id])
   created_at DateTime @default(now())
 }

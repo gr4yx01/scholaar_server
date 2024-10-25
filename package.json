@@ -4,11 +4,22 @@
   "main": "index.js",
   "repository": "git@github.com:gr4yx01/scholaar_server.git",
   "author": "asahelcode <hoyx0101@gmail.com>",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx --watch src/index.ts"
+  },
   "license": "MIT",
   "dependencies": {
+    "@prisma/client": "^5.21.1",
+    "@types/argon2": "^0.15.4",
+    "@types/express": "^5.0.0",
+    "argon2": "^0.41.1",
     "express": "^4.21.1",
     "jsonwebtoken": "^9.0.2",
     "prisma": "^5.21.1",
     "tsx": "^4.19.1"
+  },
+  "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.7"
   }
 }

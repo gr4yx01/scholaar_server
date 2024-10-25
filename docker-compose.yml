@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres
+    container_name: scholaar
+    environment:
+      POSTGRES_USER: graey
+      POSTGRES_PASSWORD: falcon568
+      POSTGRES_DB: scholaar 
+    ports:
+      - "4003:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
+    driver: local

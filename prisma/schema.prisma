@@ -1,0 +1,78 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  seed = "prisma/seed.ts"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Student {
+  id String @id @default(cuid())
+  name String
+  email String @unique
+  country String
+  degree String
+  password String
+}
+
+model Country {
+  id         String       @id @default(cuid())
+  name       String    @unique
+  states     State[]   // One-to-many relationship with State
+}
+
+model State {
+  id           String          @id @default(cuid())
+  name         String
+  countryId    String
+  country      Country      @relation(fields: [countryId], references: [id])
+  universities University[]
+}
+
+model University {
+  id           String            @id @default(cuid())
+  name         String
+  stateId      String
+  state        State          @relation(fields: [stateId], references: [id])
+  loans        Loan[]
+}
+
+model Scholarship {
+  id           String            @id @default(cuid())
+  name         String
+  sponsor String
+  deadline  String
+  field_of_study String[]
+  amount Int
+  url String
+  description String
+  number_of_award Int
+  nationality String[] @default(["unrestricted"])
+  host_country String[]
+  created_at DateTime @default(now())
+}
+
+model Loan {
+  id           String            @id @default(cuid())
+  name         String
+  fixed_rate_min Float
+  fixed_rate_max Float
+  variable_rate_min Float
+  variable_rate_max Float
+  description_one String
+  description_two String
+  description_three String
+  url String
+  universities University @relation(fields: [universityId], references: [id])
+  universityId String
+  stateId String
+  created_at DateTime @default(now())
+}

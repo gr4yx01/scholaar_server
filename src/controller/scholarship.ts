@@ -32,10 +32,9 @@ const createScholarship = async (req: Request, res: Response) =>  {
     }
 }
 
-const fetchScholarships = async (req: Request, res: Response) => {
-    const { name, major, country, host_country } = req.body
+const fetchScholarshipByName = async (req: Request, res: Response) => {
+    const { name } = req.body
     try {
-        if(major == '' && host_country == '') {
             const scholarships = await prisma.scholarship.findMany({
                 where: {
                     name: {
@@ -43,29 +42,39 @@ const fetchScholarships = async (req: Request, res: Response) => {
                         mode: 'insensitive'
                     }
                 }
-            });
+            })
 
             res.status(200).json({
                 message: 'list of scholarships',
                 data: scholarships
             })
-        }else {
-            const scholarships = await prisma.scholarship.findMany({
-                where: {
-                    field_of_study: {
-                        has: major
-                    },
-                    host_country: {
-                        has: host_country
-                    }
-                }
-            });
-            
-            res.status(200).json({
-                message: 'list of scholarships',
-                data: scholarships
-            })
-        }
+    } catch(err) {
+        res.status(500).json({
+            message: 'Internal server error',
+            error: err
+        })
+    }
+}
+
+const getScholarshipByMajorAndCountry = async (req: Request, res: Response) => {
+    try {
+        const { major, country } = req.body
+
+        console.log(country)
+
+        const scholarships = await prisma.scholarship.findMany({
+            where: {
+                OR: [
+                    major ? { field_of_study: { has: major } } : {},
+                    country ? { nationality: { has: country } } : {}
+                ]
+            }
+        });
+        
+        res.status(200).json({
+            message: 'list of scholarships',
+            data: scholarships
+        })
     } catch(err) {
         res.status(500).json({
             message: 'Internal server error',
@@ -76,5 +85,6 @@ const fetchScholarships = async (req: Request, res: Response) => {
 
 export {
     createScholarship,
-    fetchScholarships
+    fetchScholarshipByName,
+    getScholarshipByMajorAndCountry
 }

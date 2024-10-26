@@ -39,7 +39,7 @@ const createLoan = async (req: Request, res: Response) => {
 }
 
 const fetchLoans = async (req: Request, res: Response) => {
-    const { universityId } = req.body
+    const { universityId } = req.params
 
     try {
         const loans = await prisma.loanUniversity.findMany({

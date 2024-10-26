@@ -6,8 +6,8 @@ const scholarshipRouter = Router()
 
 scholarshipRouter.post('/', createScholarship)
 
-scholarshipRouter.get('/', fetchScholarshipByName)
+scholarshipRouter.post('/search', fetchScholarshipByName)
 
-scholarshipRouter.get('/query', getScholarshipByMajorAndCountry)
+scholarshipRouter.post('/query', getScholarshipByMajorAndCountry)
 
 export default scholarshipRouter

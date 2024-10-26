@@ -5,6 +5,6 @@ const loanRouter = Router()
 
 loanRouter.post('/', createLoan)
 
-loanRouter.get('/', fetchLoans)
+loanRouter.get('/:universityId', fetchLoans)
 
 export default loanRouter

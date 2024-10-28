@@ -18,8 +18,6 @@ model Student {
   id String @id @default(cuid())
   name String
   email String @unique
-  country String
-  degree String
   password String
 }
 

@@ -83,8 +83,31 @@ const getScholarshipByMajorAndCountry = async (req: Request, res: Response) => {
     }
 }
 
+const getScholarship = async (req: Request, res: Response) => {
+    const { id } = req.params
+
+    try {
+        const scholarship = await prisma.scholarship.findUnique({
+            where: {
+                id
+            }
+        })
+
+        res.status(200).json({
+            message: 'scholarship detail',
+            data: scholarship
+        })
+    } catch (err) {
+        res.status(500).json({
+            message: 'Internal server error',
+            error: err
+        })
+    }
+}
+
 export {
     createScholarship,
     fetchScholarshipByName,
-    getScholarshipByMajorAndCountry
+    getScholarshipByMajorAndCountry,
+    getScholarship
 }

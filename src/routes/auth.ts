@@ -1,10 +1,10 @@
-// import { Router } from "express";
-// import { loginUser, registerUser } from "../controller/auth";
+import { Router } from "express";
+import { loginUser, registerUser } from "../controller/auth";
 
-// const authRouter = Router()
+const authRouter = Router()
 
-// authRouter.post('/register', registerUser)
+authRouter.post('/register', registerUser)
 
-// authRouter.post('/login', loginUser)
+authRouter.post('/login', loginUser)
 
-// export default authRouter
+export default authRouter

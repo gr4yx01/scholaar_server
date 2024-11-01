@@ -22,10 +22,9 @@ const registerUser = async (req: Request, res: Response) => {
         })
 
         if(emailExists) {
-            res.status(409).json({
-                message: 'User with email already Exist'
+            return res.status(400).json({
+                message: 'Email already exist'
             })
-            return;
         }
 
         const hashPassword = await argon.hash(password)
@@ -56,9 +55,9 @@ const registerUser = async (req: Request, res: Response) => {
             message: 'User created successfully',
             data: token
         })
-    } catch (err) {
+    } catch (err: any) {
         res.status(500).json({
-            message: 'Internal server error',
+            message: err?.message,
             error: err
         })
     }

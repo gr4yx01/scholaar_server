@@ -1,4 +1,4 @@
-export const countries = [
+export const test_countries = [
     {
         "name": "Afghanistan",
         "iso3": "AFG",
